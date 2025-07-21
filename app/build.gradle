@@ -1,0 +1,8 @@
+dependencies {
+    implementation libs.bundles.app
+    testImplementation libs.bundles.appTest
+}
+
+test {
+    useJUnitPlatform()
+}

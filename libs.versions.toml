@@ -1,0 +1,19 @@
+[versions]
+
+[libraries]
+# App
+spring-boot-starter-webflux = { module = 'org.springframework.boot:spring-boot-starter-webflux', version = '3.5.3' }
+# App Test
+spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test', version = '3.5.3' }
+reactor-test = { module = 'io.projectreactor:reactor-test', version = '3.7.8' }
+junit = { module = 'junit:junit', version = '4.12' }
+
+[bundles]
+app = [
+    'spring-boot-starter-webflux'
+]
+appTest = [
+    'spring-boot-starter-test',
+    'reactor-test',
+    'junit'
+]
