@@ -20,7 +20,7 @@ public class GreetingClientTest {
 
     @Test
     void testGetGreeting() {
-        StepVerifier.create(greetingClient.getMessage())
+        StepVerifier.create(greetingClient.getMessage("Spring"))
                 .expectNextMatches(greeting -> greeting.message().equals("Hello, Spring!"))
                 .verifyComplete();
     }

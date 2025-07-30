@@ -11,7 +11,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Component
 public class GreetingHandler {
     public Mono<ServerResponse> hello(ServerRequest request) {
+        String name = request.queryParam("name").orElse("Spring");
         return ServerResponse.ok().contentType(APPLICATION_JSON)
-                .body(BodyInserters.fromValue(new Greeting("Hello, Spring!")));
+                .body(BodyInserters.fromValue(new Greeting("Hello, " + name + "!")));
     }
 }

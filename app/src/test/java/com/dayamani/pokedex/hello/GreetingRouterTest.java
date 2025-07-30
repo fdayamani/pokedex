@@ -23,9 +23,17 @@ public class GreetingRouterTest {
                 .accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(Greeting.class).value(greeting -> {
-                    assertThat(greeting.message()).isEqualTo("Hello, Spring!");
-                });
+                .expectBody(Greeting.class).value(greeting -> assertThat(greeting.message()).isEqualTo("Hello, Spring!"));
+    }
+
+    @Test
+    public void testHelloWithName() {
+        webTestClient
+                .get().uri("/hello?name=Billy")
+                .accept(APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Greeting.class).value(greeting -> assertThat(greeting.message()).isEqualTo("Hello, Billy!"));
     }
 
 }

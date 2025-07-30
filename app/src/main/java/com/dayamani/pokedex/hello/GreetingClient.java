@@ -13,8 +13,10 @@ public class GreetingClient {
         this.client = builder.baseUrl("http://localhost:8080").build();
     }
 
-    public Mono<Greeting> getMessage() {
-        return this.client.get().uri("/hello").accept(MediaType.APPLICATION_JSON)
+    public Mono<Greeting> getMessage(String name) {
+        return this.client.get()
+                .uri(uriBuilder -> uriBuilder.path("/hello").queryParam("name", name).build())
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Greeting.class);
     }

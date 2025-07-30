@@ -15,11 +15,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class HelloStepDefs {
     private String response;
 
-    @When("I call the hello endpoint")
-    public void callTheService() {
+    @When("I call the hello endpoint with {string}")
+    public void callTheService(String name) {
+        String uri = "/hello";
+        if (!"no name".equals(name)) {
+            uri += "?name=" + name;
+        }
         WebClient webClient = WebClient.create("http://localhost:8080");
         Mono<String> response = webClient.get()
-                .uri("/hello")
+                .uri(uri)
                 .accept(APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(String.class);
