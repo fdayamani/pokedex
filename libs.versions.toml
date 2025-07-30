@@ -1,4 +1,5 @@
 [versions]
+cucumber = '7.27.0'
 
 [libraries]
 # App
@@ -7,6 +8,11 @@ spring-boot-starter-webflux = { module = 'org.springframework.boot:spring-boot-s
 spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test', version = '3.5.3' }
 reactor-test = { module = 'io.projectreactor:reactor-test', version = '3.7.8' }
 junit = { module = 'junit:junit', version = '4.12' }
+# FT
+cucumber-java = { module = 'io.cucumber:cucumber-java', version.ref = 'cucumber' }
+cucumber-junit-platform-engine = { module = 'io.cucumber:cucumber-junit-platform-engine', version.ref = 'cucumber'}
+junit-platform-suite-api = { module = 'org.junit.platform:junit-platform-suite-api', version = '1.13.4' }
+cucumber-spring = { module = 'io.cucumber:cucumber-spring', version.ref = 'cucumber' }
 
 [bundles]
 app = [
@@ -16,4 +22,12 @@ appTest = [
     'spring-boot-starter-test',
     'reactor-test',
     'junit'
+]
+ft = [
+    'cucumber-java',
+    'cucumber-junit-platform-engine',
+    'junit-platform-suite-api',
+    'cucumber-spring',
+    'spring-boot-starter-test',
+    'spring-boot-starter-webflux'
 ]
