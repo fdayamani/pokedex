@@ -10,13 +10,6 @@ test {
 bootJar {
     archiveBaseName = 'pokedex-app'
     archiveVersion = ''
-    manifest {
-        attributes(
-                'Implementation-Title': 'Pokedex App',
-                'Implementation-Version': project.version,
-                'Main-Class': 'com.dayamani.pokedex.Application'
-        )
-    }
 }
 
 jar {
