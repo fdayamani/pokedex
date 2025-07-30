@@ -6,10 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import reactor.test.StepVerifier;
 
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
-@TestPropertySource(properties = "spring.main.web-application-type=reactive")
+@SpringBootTest(webEnvironment = DEFINED_PORT)
+@TestPropertySource(properties = {
+        "server.port=8080",
+        "spring.main.web-application-type=reactive"
+})
 public class GreetingClientTest {
 
     @Autowired

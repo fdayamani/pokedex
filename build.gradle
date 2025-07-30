@@ -32,7 +32,6 @@ subprojects {
         monorepo {
             include(['app', 'ft', 'build.gradle', 'libs.versions.toml'])
         }
-        releasePushTags = false
     }
 
     version = scmVersion.version
