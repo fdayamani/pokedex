@@ -1,0 +1,4 @@
+server:
+  port: 8080
+pokeapi:
+  base-url: ${POKEAPI_BASE_URL:http://localhost:8081}

@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  pokeapi-mock:
+    image: wiremock/wiremock:3.3.1
+    container_name: pokedex-mocks
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./mocks/stubs:/home/wiremock
+    command: ["--verbose"]
+
+  pokedex-app:
+    build: ./app
+    container_name: pokedex-app
+    ports:
+      - "8080:8080"
+    environment:
+      - POKEAPI_BASE_URL=http://pokeapi-mock:8080
+    depends_on:
+      - pokeapi-mock
+
+  pokedex-fts:
+    build: ./ft
+    container_name: pokedex-fts
+    environment:
+      - POKEDEX_APP_URL=http://pokedex-app:8080
+    depends_on:
+      - pokedex-app

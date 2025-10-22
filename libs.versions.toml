@@ -13,6 +13,7 @@ cucumber-java = { module = 'io.cucumber:cucumber-java', version.ref = 'cucumber'
 cucumber-junit-platform-engine = { module = 'io.cucumber:cucumber-junit-platform-engine', version.ref = 'cucumber'}
 junit-platform-suite-api = { module = 'org.junit.platform:junit-platform-suite-api', version = '1.13.4' }
 cucumber-spring = { module = 'io.cucumber:cucumber-spring', version.ref = 'cucumber' }
+wiremock = { module = 'com.github.tomakehurst:wiremock-jre8', version = '2.35.0' }
 
 [bundles]
 app = [
@@ -29,5 +30,6 @@ ft = [
     'junit-platform-suite-api',
     'cucumber-spring',
     'spring-boot-starter-test',
-    'spring-boot-starter-webflux'
+    'spring-boot-starter-webflux',
+    'wiremock'
 ]

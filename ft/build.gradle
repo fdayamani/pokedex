@@ -5,6 +5,7 @@ dependencies {
 bootJar {
     archiveBaseName = 'pokedex-ft'
     archiveVersion = ''
+    mainClass = 'io.cucumber.core.cli.Main'
 }
 
 jar {
