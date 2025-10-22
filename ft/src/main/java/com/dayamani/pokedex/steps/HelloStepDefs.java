@@ -1,19 +1,28 @@
 package com.dayamani.pokedex.steps;
 
-import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import com.dayamani.pokedex.client.http.Request;
+import com.dayamani.pokedex.config.FtConfiguration;
+import com.dayamani.pokedex.scenario.ScenarioState;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @CucumberContextConfiguration
+@ContextConfiguration(classes = FtConfiguration.class)
 public class HelloStepDefs {
-    private String response;
+    private final Request request;
+    private final ScenarioState scenarioState;
+
+    public HelloStepDefs(Request request, ScenarioState scenarioState) {
+        this.request = request;
+        this.scenarioState = scenarioState;
+    }
 
     @When("I call the hello endpoint with {string}")
     public void callTheService(String name) {
@@ -21,18 +30,18 @@ public class HelloStepDefs {
         if (!"no name".equals(name)) {
             uri += "?name=" + name;
         }
-        WebClient webClient = WebClient.create("http://localhost:8080");
-        Mono<String> response = webClient.get()
-                .uri(uri)
-                .accept(APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(String.class);
-        this.response = response.block();
+
+        request.setPath(uri);
+        request.setMethod("GET");
+        request.addHeader("Accept", APPLICATION_JSON.toString());
+
+        scenarioState.sendRequest();
     }
 
     @Then("the response should be {string}")
     public void verifyResponse(String expectedMessage) throws JsonProcessingException {
-        String actualMessage = new ObjectMapper().readTree(response).get("message").asText();
+        String responseBody = scenarioState.getResponseState().body();
+        String actualMessage = new ObjectMapper().readTree(responseBody).get("message").asText();
 
         assertThat(actualMessage).isEqualTo(expectedMessage);
     }

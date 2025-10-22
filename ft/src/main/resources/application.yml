@@ -1,0 +1,7 @@
+app:
+  scheme: http
+  host: localhost
+  port: 8080
+  wiremock-scheme: http
+  wiremock-host: localhost
+  wiremock-port: 8081

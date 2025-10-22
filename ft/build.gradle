@@ -11,3 +11,19 @@ bootJar {
 jar {
     enabled = false
 }
+
+task ft(type: JavaExec) {
+    group = 'Verification'
+    description = 'Run Cucumber functional tests via CLI'
+
+    mainClass = 'io.cucumber.core.cli.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['--plugin', "json:build/cucumber-reports/ft.json",
+            '--plugin', 'junit:build/cucumber-reports/junit-test-report.xml',
+            '--plugin', 'pretty',
+            '--plugin', 'html:build/cucumber-reports/ft-html',
+            '--glue', "com.dayamani.pokedex",
+            '--tags', 'not @wip and not @local-only',
+            'src/main/resources/features',
+    ]
+}
